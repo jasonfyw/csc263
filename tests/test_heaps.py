@@ -27,3 +27,19 @@ def test_extract_max():
     max_ = heaps.heap_extract_max(A)
     assert max_ == 89
     assert A == [None, 87, 49, 53, 48, 23, 17, 14, 26, 32, 12]
+
+
+def test_heapify_empty_min_heap():
+    A = [None]
+    heaps.min_heapify(A, 1)
+    assert A == [None]
+
+def test_build_basic_min_heap():
+    A = [None, 1, 2, 3]
+    heaps.build_min_heap(A)
+    assert A == [None, 1, 2, 3]
+
+def test_extract_max():
+    A = [None, 9, 5, 3, 2]
+    heaps.build_min_heap(A)
+    assert A == [None, 2, 5, 3, 9]

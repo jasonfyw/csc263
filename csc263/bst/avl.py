@@ -1,17 +1,9 @@
 from typing import TypeVar
 import sys
+from ._bst_helpers import NIL
 
 T = TypeVar('T')
 
-
-class NILNode:
-    def __init__(self) -> None:
-        self.item = None
-        self.left = self
-        self.right = self
-        self.height = -1
-
-NIL = NILNode()
 
 class AVLNode:
     def __init__(self, x: T = None) -> None:
@@ -19,8 +11,6 @@ class AVLNode:
         self.left = NIL
         self.right = NIL
         self.height = 0
-
-
 
 
 class AVLTree:

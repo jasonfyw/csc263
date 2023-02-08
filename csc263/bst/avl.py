@@ -17,6 +17,9 @@ class AVLTree:
     def __init__(self) -> None:
         self.root = NIL
 
+    def insert(self, x: T) -> None:
+        self.root = avl_insert(self.root, x)
+
     def __str__(self) -> str:
         self.print_helper(self.root)
         return ''

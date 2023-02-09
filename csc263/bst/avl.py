@@ -5,6 +5,12 @@ from ._bst_helpers import NIL
 T = TypeVar('T')
 
 
+"""
+============================================================
+AVL Tree Classes
+============================================================
+"""
+
 class AVLNode:
     def __init__(self, x: T = None) -> None:
         self.item = x
@@ -38,6 +44,12 @@ class AVLTree:
             self.print_helper(node.right, indent, True)
 
 
+"""
+============================================================
+AVL Insertion
+============================================================
+"""
+
 def avl_insert(root: AVLNode, x: T) -> AVLNode:
     if root == NIL:
         root = AVLNode(x)
@@ -51,6 +63,12 @@ def avl_insert(root: AVLNode, x: T) -> AVLNode:
         root.item = x
     return root
 
+
+"""
+============================================================
+AVL Rebalancing
+============================================================
+"""
 
 def avl_rebalance_left(root: AVLNode) -> AVLNode:
     # PRECOND: root != NIL
@@ -67,7 +85,7 @@ def avl_rebalance_left(root: AVLNode) -> AVLNode:
 
 def avl_rebalance_right(root: AVLNode) -> AVLNode:
     # PRECOND: root != NIL
-    # first recalculat eheight
+    # first recalculate height
     root.height = 1 + max(root.left.height, root.right.height)
     # rebalance if necessary
     if root.left.height > 1 + root.right.height:
@@ -96,8 +114,5 @@ def avl_rotate_right(parent: AVLNode) -> AVLNode:
     parent.height = 1 + max(parent.left.height, parent.right.height)
     child.height = 1 + max(child.left.height, child.right.height)
     return child
-
-
-
 
 

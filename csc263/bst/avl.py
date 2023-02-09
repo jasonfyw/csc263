@@ -1,4 +1,4 @@
-from typing import TypeVar
+from typing import TypeVar, Tuple
 import sys
 from ._bst_helpers import NIL
 
@@ -25,6 +25,9 @@ class AVLTree:
 
     def insert(self, x: T) -> None:
         self.root = avl_insert(self.root, x)
+
+    def delete(self, x: T) -> None:
+        self.root = avl_delete(self.root, x)
 
     def __str__(self) -> str:
         self.print_helper(self.root)
@@ -115,4 +118,52 @@ def avl_rotate_right(parent: AVLNode) -> AVLNode:
     child.height = 1 + max(child.left.height, child.right.height)
     return child
 
+
+"""
+============================================================
+AVL Deletion
+============================================================
+"""
+
+def avl_delete(root: AVLNode, x: T) -> AVLNode:
+    if root == NIL:
+        pass
+    elif x < root.item:
+        root.left = avl_delete(root.left, x)
+        root = avl_rebalance_left(root)
+    elif x > root.item:
+        root.right = avl_delete(root.right, x)
+        root = avl_rebalance_right(root)
+    else: # x == root.item
+        if root.left == NIL:
+            root = root.right
+        elif root.right == NIL:
+            root = root.left
+        else:
+            if root.left.height > root.height:
+                root.item, root.left = avl_extract_max(root.left)
+            else:
+                root.item, root.right = avl_extract_min(root.right)
+            root.height = 1 + max(root.left.height, root.right.height)
+    return root
+
+
+def avl_extract_max(root: AVLNode) -> Tuple[T, AVLNode]:
+    # PRECOND: root != NIL
+    if root.right == NIL:
+        return root.item, root.left
+    else:
+        item, root.right = avl_extract_max(root.right)
+        root = avl_rebalance_right(root)
+        return item, root
+    
+
+def avl_extract_min(root: AVLNode) -> Tuple[T, AVLNode]:
+    # PRECOND: root != NIL
+    if root.left == NIL:
+        return root.item, root.right
+    else:
+        item, root.left = avl_extract_min(root.left)
+        root = avl_rebalance_left(root)
+        return item, root
 

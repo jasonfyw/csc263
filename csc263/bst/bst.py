@@ -37,16 +37,36 @@ class BST:
         """
         self.root = bst_delete(self.root, x)
     
-    def __str__(self):
-        self.print_tree()
-        return ''
+    def __str__(self) -> str:
+        """Return a horizontal string representation of the  tree 
 
-    def print_tree(self, level=0):
-        if self.root == NIL:
-            return
-        self.print_tree(self.root.right, level + 1)
-        print("    " * level + str(self.root.item))
-        self.print_tree(self.root.left, level + 1)
+        Returns:
+            str: string representation of the tree
+        """
+        return self._pretty_print(self.root, 0)
+    
+    def __repr__(self) -> str:
+        """Return a horizontal string representation of the  tree 
+
+        Returns:
+            str: string representation of the tree
+        """
+        return self._pretty_print(self.root, 0)
+    
+    def _pretty_print(self, node: BSTNode, level: int):
+        """Private helper function to recursively generate each level in the 
+        string representation
+
+        Args:
+            node (BSTNode): current node
+            level (int): the level of the node
+        """
+        result = ""
+        if node != NIL:
+            result += self._pretty_print(node.right, level + 1)
+            result += "\t" * level + str(node.item) + "\n"
+            result += self._pretty_print(node.left, level + 1)
+        return result
 
 
 """

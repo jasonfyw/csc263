@@ -2,6 +2,7 @@ from typing import TypeVar, Tuple
 import sys
 from ._bst_helpers import NIL
 from ._node import Node
+from .bst import BST
 
 T = TypeVar('T')
 
@@ -22,12 +23,13 @@ class AVLNode(Node):
         self.height = 0
 
 
-class AVLTree:
+class AVLTree(BST):
     """Class representing an AVL Tree
     """
     def __init__(self) -> None:
         """Create an empty AVL tree
         """
+        super().__init__()
         self.root = NIL
 
     def insert(self, x: T) -> None:
@@ -45,37 +47,6 @@ class AVLTree:
             x (T): comparable item to delete
         """
         self.root = avl_delete(self.root, x)
-
-    def __str__(self) -> str:
-        """Return a horizontal string representation of the AVL tree 
-
-        Returns:
-            str: string representation of AVL TREE
-        """
-        return self._pretty_print(self.root, 0)
-    
-    def __repr__(self) -> str:
-        """Return a horizontal string representation of the AVL tree 
-
-        Returns:
-            str: string representation of AVL TREE
-        """
-        return self._pretty_print(self.root, 0)
-    
-    def _pretty_print(self, node: AVLNode, level: int):
-        """Private helper function to recursively generate each level in the 
-        string representation
-
-        Args:
-            node (AVLNode): current node
-            level (int): the level of the node
-        """
-        result = ""
-        if node != NIL:
-            result += self._pretty_print(node.right, level + 1)
-            result += "\t" * level + str(node.item) + "\n"
-            result += self._pretty_print(node.left, level + 1)
-        return result
 
 
 """

@@ -1,6 +1,7 @@
 from typing import TypeVar, Tuple
 import sys
 from ._bst_helpers import NIL
+from ._node import Node
 
 T = TypeVar('T')
 
@@ -11,7 +12,7 @@ AVL Tree Classes
 ============================================================
 """
 
-class AVLNode:
+class AVLNode(Node):
     def __init__(self, x: T = None) -> None:
         self.item = x
         self.left = NIL

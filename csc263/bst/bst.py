@@ -1,10 +1,11 @@
 from typing import TypeVar
 from ._bst_helpers import NIL
+from ._node import Node
 
 T = TypeVar('T')
 
 
-class BSTNode:
+class BSTNode(Node):
     def __init__(self, item=None):
         self.left = NIL
         self.right = NIL

@@ -13,6 +13,8 @@ AVL Tree Classes
 """
 
 class AVLNode(Node):
+    """Class representing a node in an AVL tree
+    """
     def __init__(self, x: T = None) -> None:
         self.item = x
         self.left = NIL
@@ -21,13 +23,27 @@ class AVLNode(Node):
 
 
 class AVLTree:
+    """Class representing an AVL Tree
+    """
     def __init__(self) -> None:
+        """Create an empty AVL tree
+        """
         self.root = NIL
 
     def insert(self, x: T) -> None:
+        """Method to insert <x> to AVLTree
+
+        Args:
+            x (T): comparable item to insert
+        """
         self.root = avl_insert(self.root, x)
 
     def delete(self, x: T) -> None:
+        """Method to delete <x> from AVLTree
+
+        Args:
+            x (T): comparable item to delete
+        """
         self.root = avl_delete(self.root, x)
 
     def __str__(self) -> str:
@@ -55,6 +71,14 @@ AVL Insertion
 """
 
 def avl_insert(root: AVLNode, x: T) -> AVLNode:
+    """Inserts item <x> into AVLNode <root>
+
+    Args:
+        root (AVLNode): the root of the AVL tree
+
+    Returns:
+        AVLNode: the new root node with the inserted item
+    """
     if root == NIL:
         root = AVLNode(x)
     elif x < root.item:
@@ -75,6 +99,14 @@ AVL Rebalancing
 """
 
 def avl_rebalance_left(root: AVLNode) -> AVLNode:
+    """Rebalances the left subtree
+
+    Args:
+        root (AVLNode): root node of the subtree to rebalance
+
+    Returns:
+        AVLNode: the new rebalanced node
+    """
     # PRECOND: root != NIL
     # first recalculate height
     root.height = 1 + max(root.left.height, root.right.height)
@@ -88,6 +120,14 @@ def avl_rebalance_left(root: AVLNode) -> AVLNode:
 
 
 def avl_rebalance_right(root: AVLNode) -> AVLNode:
+    """Rebalances the right subtree
+
+    Args:
+        root (AVLNode): root node of the subtree to rebalance
+
+    Returns:
+        AVLNode: the new rebalanced node
+    """
     # PRECOND: root != NIL
     # first recalculate height
     root.height = 1 + max(root.left.height, root.right.height)
@@ -101,6 +141,14 @@ def avl_rebalance_right(root: AVLNode) -> AVLNode:
 
 
 def avl_rotate_left(parent: AVLNode) -> AVLNode:
+    """Performs one left rotation on <parent>
+
+    Args:
+        parent (AVLNode): the node on which to rotate
+
+    Returns:
+        AVLNode: the parent node after rotation
+    """
     # PRECOND: parent != NIL and parent.right != NIL
     child = parent.right
     parent.right = child.left
@@ -111,6 +159,14 @@ def avl_rotate_left(parent: AVLNode) -> AVLNode:
 
 
 def avl_rotate_right(parent: AVLNode) -> AVLNode:
+    """Performs one right rotation on <parent>
+
+    Args:
+        parent (AVLNode): the node on which to rotate
+
+    Returns:
+        AVLNode: the parent node after rotation
+    """
     # PRECOND: parent != NIL and parent.left != NIL
     child = parent.left
     parent.left = child.right
@@ -127,6 +183,15 @@ AVL Deletion
 """
 
 def avl_delete(root: AVLNode, x: T) -> AVLNode:
+    """Deletes node with item <x> from tree with root <root>
+
+    Args:
+        root (AVLNode): root node to delete from
+        x (T): the comparable item to delete
+
+    Returns:
+        AVLNode: <root> with <x> deleted 
+    """
     if root == NIL:
         pass
     elif x < root.item:
@@ -150,6 +215,14 @@ def avl_delete(root: AVLNode, x: T) -> AVLNode:
 
 
 def avl_extract_max(root: AVLNode) -> Tuple[T, AVLNode]:
+    """Returns and removes maximum item in <root>
+
+    Args:
+        root (AVLNode): root of subtree to extract max from
+
+    Returns:
+        Tuple[T, AVLNode]: maximum item, new root with extracted max
+    """
     # PRECOND: root != NIL
     if root.right == NIL:
         return root.item, root.left
@@ -160,6 +233,14 @@ def avl_extract_max(root: AVLNode) -> Tuple[T, AVLNode]:
     
 
 def avl_extract_min(root: AVLNode) -> Tuple[T, AVLNode]:
+    """Returns and removes minimum item in <root>
+
+    Args:
+        root (AVLNode): root of subtree to extract min from
+
+    Returns:
+        Tuple[T, AVLNode]: minimum item, new root with extracted min
+    """
     # PRECOND: root != NIL
     if root.left == NIL:
         return root.item, root.right

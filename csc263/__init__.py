@@ -1,1 +1,2 @@
-import csc263.heaps
+import csc263.heap
+import csc263.bst

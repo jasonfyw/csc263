@@ -47,21 +47,35 @@ class AVLTree:
         self.root = avl_delete(self.root, x)
 
     def __str__(self) -> str:
-        self.print_helper(self.root)
-        return ''
+        """Return a horizontal string representation of the AVL tree 
 
-    def print_helper(self, node: AVLNode, indent: str = '', last: bool = True) -> None:
+        Returns:
+            str: string representation of AVL TREE
+        """
+        return self._pretty_print(self.root, 0)
+    
+    def __repr__(self) -> str:
+        """Return a horizontal string representation of the AVL tree 
+
+        Returns:
+            str: string representation of AVL TREE
+        """
+        return self._pretty_print(self.root, 0)
+    
+    def _pretty_print(self, node: AVLNode, level: int):
+        """Private helper function to recursively generate each level in the 
+        string representation
+
+        Args:
+            node (AVLNode): current node
+            level (int): the level of the node
+        """
+        result = ""
         if node != NIL:
-            sys.stdout.write(indent)
-            if last:
-                sys.stdout.write("R----")
-                indent += "     "
-            else:
-                sys.stdout.write("L----")
-                indent += "|    "
-            print(node.item)
-            self.print_helper(node.left, indent, False)
-            self.print_helper(node.right, indent, True)
+            result += self._pretty_print(node.right, level + 1)
+            result += "\t" * level + str(node.item) + "\n"
+            result += self._pretty_print(node.left, level + 1)
+        return result
 
 
 """
